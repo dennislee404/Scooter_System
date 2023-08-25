@@ -1,36 +1,34 @@
 class User
-	attr_reader :name, :id, :card, :status
+	attr_reader :name, :id, :status, :fare
 	def initialize(name)
 		@id = rand(10000..99999)
 		@name = name
 		@status = "Not Renting"
-		@card = Card.new()
 	end
 
-	def rent(scooter,station)
+	def rent(scooter,station,start_time)
 		if @status == "Renting"
 			puts "Please return current scooter before renting another one"
 		else
-			scooter.leave(station)
-			@status = "Renting"
+			if scooter.status == "Available"
+				scooter.leave(station)
+				@start_time = start_time.to_i
+				@status = "Renting"
+			else
+				puts "Scooter not available at this station."
+			end
 		end
-		@status
 	end
 
-	def return(scooter,station)
+	def return(scooter,station,end_time)
 		scooter.park(station)
+		@end_time = end_time.to_i
 		@status = "Not Renting"
+		payment(@start_time,@end_time)
 	end
 
-	def travel(start_time,end_time)
-		@start_time = start_time
-		@end_time = end_time
+	def payment(start_time,end_time)
 		@fare = 5 + (end_time - start_time)/60 #RM5 base rate + RM1/min 
-
-		if card.balance >= @fare
-			card.deduct_fare(@fare)
-		else
-			puts "Insufficient fund in card"
-		end
+		puts "The fare is #{@fare}"
 	end
 end

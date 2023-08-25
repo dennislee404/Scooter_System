@@ -7,47 +7,37 @@
 # (Done) Docking stations possess a predefined scooter capacity.
 # (Done) Users must return a rented scooter before they can rent another one.
 # (Bonus) A way to keep track of information about the rented scooter, the user renting it, and the start and end times of the rental.
-# (Bonus) Introduce a pricing system where rental costs vary based on different times of the day (peak hours vs. off-peak hours).
+# (Bonus) Introduce a pricing system where rental costs vary based on k,different times of the day (peak hours vs. off-peak hours).
 
-require './user.rb'
-require './card.rb'
+require './user.rb'	
 require './scooter.rb'
 require './station.rb'
+require './datamanager.rb'
+
+my_file = 'scooter_data.txt'
 
 user1 = User.new("Dennis")
-scooter1 = Scooter.new()
-scooter2 = Scooter.new()
-station1 = Station.new("Riverson",2)
-station2 = Station.new("Sutera Avenue",1)
+scooter1 = Scooter.new
+rent_start_time = Time.now()
+rent_end_time = Time.now()+120
+# scooter2 = Scooter.new
+# scooter3 = Scooter.new(2307)
+# station1 = Station.new("Riverson",10)
+# station2 = Station.new("Sutera Avenue",5)
 
-puts scooter1.status
-puts scooter2.status
-puts station1.current_capacity
-puts scooter1.park(station1)
-puts scooter2.park(station1)
-puts "--------------"
-puts station1.name
-puts station1.current_capacity
-puts station1.max_capacity
-puts station2.name
-puts station2.current_capacity
-puts station2.max_capacity
-puts "-------------"
-puts user1.status
-user1.rent(scooter1,station1)
-user1.rent(scooter2,station1)
-puts scooter1.status
-puts station1.current_capacity
-user1.return(scooter1,station2)
-puts scooter1.status
-puts station2.current_capacity
+DataManager.save_scooter_database(my_file,scooter1.id,user1.name,rent_start_time,rent_end_time)
+
+
+# scooter1 = Scooter.new()
+# puts scooter1.id
+# scooter2 = Scooter.new()
+# puts scooter2.id
+# scooter3 = Scooter.new(8455)
+# puts scooter3.id
 
 # string_start_time ='15:00:12'
 # start_time_parts = string_start_time.split(":").collect{ |y| y.to_i }
-# puts start_time_parts[0]
-# puts start_time_parts[1]
-# puts start_time_parts[2]
-# start_time = Time.new()
+# start_time = Time.new(Time.now.year, Time.now.month, Time.now.day, start_time_parts[0], start_time_parts[1], start_time_parts[2])
 # p start_time
 
 # string_end_time='19:32:12'
@@ -56,3 +46,11 @@ puts station2.current_capacity
 # p end_time
 
 # p duration_seconds = end_time.to_i - start_time.to_i
+
+
+# user1 = User.new("Dennis")
+# scooter1 = Scooter.new()
+# scooter2 = Scooter.new()
+# scooter3 = Scooter.new()
+# station1 = Station.new("Riverson",2)
+# station2 = Station.new("Sutera Avenue",1)
