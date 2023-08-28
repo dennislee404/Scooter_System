@@ -2,8 +2,8 @@ class Scooter
 	attr_reader :id, :status, :station
 	def initialize(id=rand(1000..9999))
 		@id = id
-		@status = "Available"
-		@station = nil
+		@status = "Pending"
+		@station = "None"
 	end
 
 	def park(station)
@@ -15,13 +15,13 @@ class Scooter
 	def leave(station)
 		station.minus
 		@status = "Rented"
-		@station = nil
+		@station = "None"
 	end
 
 	def broken!(station)
 		station.minus
 		@status = "Broken"
-		@station = nil
+		@station = "None"
 	end
 
 	def repaired!(station)
